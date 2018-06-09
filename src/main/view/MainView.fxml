@@ -18,15 +18,15 @@
       <menus>
         <Menu id="menuFile" mnemonicParsing="false" text="File">
           <items>
-            <MenuItem id="fileNew" fx:id="fileNew" mnemonicParsing="false" text="New" />
+            <MenuItem id="fileNew" fx:id="fileNew" mnemonicParsing="false" text="New" onAction="#newCanvas"/>
             <MenuItem id="fileOpen" fx:id="fileOpen" mnemonicParsing="false" text="Open" />
             <MenuItem id="fileSave" fx:id="fileSave" mnemonicParsing="false" text="Save " />
           </items>
         </Menu>
         <Menu id="menuEdit" mnemonicParsing="false" text="Edit">
           <items>
-            <MenuItem id="editUndo" fx:id="editUndo" mnemonicParsing="false" text="Undo" />
-            <MenuItem id="editRedo" fx:id="editRedo" mnemonicParsing="false" text="Redo" />
+            <MenuItem id="editUndo" fx:id="editUndo" mnemonicParsing="false" text="Undo" onAction="#undo" />
+            <MenuItem id="editRedo" fx:id="editRedo" mnemonicParsing="false" text="Redo" onAction="#redo"/>
           </items>
         </Menu>
         <Menu id="menuHelp" mnemonicParsing="false" text="Help">
@@ -43,10 +43,8 @@
               <fx:define>
                   <ToggleGroup fx:id="toggleGroup" />
               </fx:define>
-            <ToggleButton id="brush-button" fx:id="brushButton" mnemonicParsing="false" onAction="#selectTool" prefHeight="25.0" prefWidth="30.0">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="toggleGroup" />
-                     </toggleGroup></ToggleButton>
+            <ToggleButton id="brush-button" fx:id="brushButton" mnemonicParsing="false" onAction="#selectTool" prefHeight="25.0" prefWidth="30.0" toggleGroup="$toggleGroup"/>
+            <ToggleButton id="pencil-button" fx:id="pencilButton" mnemonicParsing="false" onAction="#selectTool" prefHeight="25.0" prefWidth="30.0" toggleGroup="$toggleGroup"/>
             <ToggleButton id="line-button" fx:id="lineButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" toggleGroup="$toggleGroup" />
             <ColorPicker id="colorPicker" fx:id="colorPicker" />
             <ComboBox fx:id="sizeComboBox" prefHeight="25.0" prefWidth="69.0" />
