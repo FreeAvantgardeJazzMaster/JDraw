@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="501.9999000000025" prefWidth="803.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.Controller">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu id="menuFile" mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem id="fileNew" fx:id="fileNew" mnemonicParsing="false" text="New" />
+            <MenuItem id="fileOpen" fx:id="fileOpen" mnemonicParsing="false" text="Open" />
+            <MenuItem id="fileSave" fx:id="fileSave" mnemonicParsing="false" text="Save " />
+          </items>
+        </Menu>
+        <Menu id="menuEdit" mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem id="editUndo" fx:id="editUndo" mnemonicParsing="false" text="Undo" />
+            <MenuItem id="editRedo" fx:id="editRedo" mnemonicParsing="false" text="Redo" />
+          </items>
+        </Menu>
+        <Menu id="menuHelp" mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem id="helpAbout" fx:id="helpAbout" mnemonicParsing="false" text="About..." />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane fx:id="anchorPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+        <ToolBar minHeight="24.0" prefHeight="36.0" prefWidth="803.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <items>
+              <fx:define>
+                  <ToggleGroup fx:id="toggleGroup" />
+              </fx:define>
+            <ToggleButton id="brush-button" fx:id="brushButton" mnemonicParsing="false" onAction="#selectTool" prefHeight="25.0" prefWidth="30.0">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="toggleGroup" />
+                     </toggleGroup></ToggleButton>
+            <ToggleButton id="line-button" fx:id="lineButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" toggleGroup="$toggleGroup" />
+            <ColorPicker id="colorPicker" fx:id="colorPicker" />
+            <ComboBox fx:id="sizeComboBox" prefHeight="25.0" prefWidth="69.0" />
+          </items>
+        </ToolBar>
+        <Canvas id="canvas" fx:id="canvas" height="1500.0" layoutY="34.0" width="2000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>

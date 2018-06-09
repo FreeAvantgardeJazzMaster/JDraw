@@ -1,0 +1,19 @@
+#brush-button {
+    -fx-background-image: url("../../resources/brush.png");
+}
+
+#line-button {
+    -fx-background-image: url("../../resources/line.png");
+}
+
+#brush-button,
+#line-button
+ {
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 70.0% 70.0%;
+}
+
+#canvas{
+    -fx-background-color: white;
+}
