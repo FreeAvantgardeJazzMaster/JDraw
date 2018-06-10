@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PaintPencil implements Paint {
-    private double endX;
-    private double endY;
     private double size;
     private Color color;
     private GraphicsContext gc;
@@ -16,21 +14,6 @@ public class PaintPencil implements Paint {
 
     public void addCoorinates(Coordinates coordinate){
         this.coordinates.add(coordinate);
-    }
-    public double getEndX() {
-        return endX;
-    }
-
-    public void setEndX(double endX) {
-        this.endX = endX;
-    }
-
-    public double getEndY() {
-        return endY;
-    }
-
-    public void setEndY(double endY) {
-        this.endY = endY;
     }
 
     public double getSize() {
@@ -57,8 +40,8 @@ public class PaintPencil implements Paint {
         this.gc = gc;
     }
 
-    public PaintPencil(double endX, double endY, double size, Color color, GraphicsContext gc) {
-        coordinates.add(new Coordinates(endX, endY));
+    public PaintPencil(double size, Color color, GraphicsContext gc, Coordinates coordinates) {
+        this.coordinates.add(coordinates);
         this.size = size;
         this.color = color;
         this.gc = gc;

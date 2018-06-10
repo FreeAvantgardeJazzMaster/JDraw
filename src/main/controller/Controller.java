@@ -92,14 +92,15 @@ public class Controller {
     private void initCanvas(){
         canvasHistory = new CanvasHistory();
         graphicsContext = canvas.getGraphicsContext2D();
+
         canvas.setOnMousePressed(e -> {
             if (lineButton.isSelected()){
                 startX = e.getX();
                 startY = e.getY();
             }
             else if (pencilButton.isSelected()){
-                paintPencil = new PaintPencil(e.getX(), e.getY(),
-                        Double.parseDouble(sizeComboBox.getSelectionModel().getSelectedItem().toString()), colorPicker.getValue(), graphicsContext);
+                paintPencil = new PaintPencil(Double.parseDouble(sizeComboBox.getSelectionModel().getSelectedItem().toString()),
+                        colorPicker.getValue(), graphicsContext, new Coordinates(e.getX(), e.getY()));
             }
             else if (brushButton.isSelected()){
                 paintBrush = new PaintBrush(Double.parseDouble(sizeComboBox.getSelectionModel().getSelectedItem().toString()),
@@ -107,6 +108,7 @@ public class Controller {
             }
 
         });
+
         canvas.setOnMouseReleased(e -> {
             if (lineButton.isSelected()){
                 PaintLine paintLine = new PaintLine(startX, startY, e.getX(), e.getY(),
@@ -122,6 +124,7 @@ public class Controller {
             }
             graphicsContext.beginPath();
         });
+
         canvas.setOnMouseDragged(e -> {
             if (brushButton.isSelected()){
                 double size = Double.parseDouble(sizeComboBox.getSelectionModel().getSelectedItem().toString());
