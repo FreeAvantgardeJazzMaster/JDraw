@@ -24,20 +24,24 @@ public class CanvasHistory {
     }
 
     public void undo(){
-        previousPaints.add(paints.get(paints.size() - 1));
-        paints.remove(paints.size() - 1);
-
-        for (Paint paint : paints){
-            paint.execute();
+        if (!paints.isEmpty()) {
+            previousPaints.add(paints.get(paints.size() - 1));
+            paints.remove(paints.size() - 1);
+            
+            for (Paint paint : paints){
+                paint.execute();
+            }
         }
     }
 
     public void redo(){
-        paints.add(previousPaints.get(previousPaints.size() - 1));
-        previousPaints.remove(previousPaints.size() - 1);
+        if (!previousPaints.isEmpty()) {
+            paints.add(previousPaints.get(previousPaints.size() - 1));
+            previousPaints.remove(previousPaints.size() - 1);
 
-        for (Paint paint : paints){
-            paint.execute();
+            for (Paint paint : paints) {
+                paint.execute();
+            }
         }
     }
 

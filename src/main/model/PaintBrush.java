@@ -56,5 +56,6 @@ public class PaintBrush implements Paint {
         for (Coordinates coordinates : coordinates){
             gc.fillRoundRect(coordinates.getX() ,coordinates.getY() ,size, size, size, size);
         }
+        gc.beginPath();
     }
 }

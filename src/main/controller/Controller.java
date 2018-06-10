@@ -208,8 +208,4 @@ public class Controller {
         BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
         ImageIO.write(bImage, "png", file);
     }
-
-    public void drawSquare(ActionEvent event){
-
-    }
 }

@@ -58,5 +58,7 @@ public class PaintPencil implements Paint {
             gc.lineTo(coordinates.getX(), coordinates.getY());
             gc.stroke();
         }
+        gc.beginPath();
+
     }
 }
