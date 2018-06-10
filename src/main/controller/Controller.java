@@ -10,10 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import main.model.CanvasHistory;
-import main.model.Paint;
-import main.model.PaintLine;
-import main.model.ResizableCanvas;
+import main.model.*;
 
 
 public class Controller {
@@ -65,6 +62,8 @@ public class Controller {
 
     public CanvasHistory canvasHistory;
 
+    PaintPencil paintPencil = null;
+
     @FXML
     public void initialize(){
         initControls();
@@ -96,17 +95,21 @@ public class Controller {
                 startX = e.getX();
                 startY = e.getY();
             }
+            else if (pencilButton.isSelected()){
+                paintPencil = new PaintPencil(e.getX(), e.getY(),
+                        Double.parseDouble(sizeComboBox.getSelectionModel().getSelectedItem().toString()), colorPicker.getValue(), graphicsContext);
+            }
 
         });
         canvas.setOnMouseReleased(e -> {
             if (lineButton.isSelected()){
-              //  graphicsContext.setStroke(colorPicker.getValue());
-               // graphicsContext.setLineWidth(Double.parseDouble(sizeComboBox.getSelectionModel().getSelectedItem().toString()));
-               // graphicsContext.strokeLine(startX, startY, e.getX(), e.getY());
                 PaintLine paintLine = new PaintLine(startX, startY, e.getX(), e.getY(),
                         Double.parseDouble(sizeComboBox.getSelectionModel().getSelectedItem().toString()),colorPicker.getValue(), graphicsContext);
                 paintLine.execute();
                 canvasHistory.addPaint(paintLine);
+            }
+            else if (pencilButton.isSelected()){
+                canvasHistory.addPaint(paintPencil);
             }
             graphicsContext.beginPath();
         });
@@ -124,6 +127,8 @@ public class Controller {
                 graphicsContext.setLineWidth(Double.parseDouble(sizeComboBox.getSelectionModel().getSelectedItem().toString()));
                 graphicsContext.lineTo(e.getX(), e.getY());
                 graphicsContext.stroke();
+
+                paintPencil.addCoorinates(new Coordinates(e.getX(), e.getY()));
             }
         });
     }
