@@ -79,6 +79,7 @@ public class Controller {
     public void newCanvas(ActionEvent event){
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
         graphicsContext.clearRect(0,0, canvas.getWidth(), canvas.getHeight());
+        canvasHistory.clear();
     }
 
     private void initControls(){

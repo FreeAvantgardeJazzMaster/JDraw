@@ -5,7 +5,7 @@ import java.util.List;
 
 public class CanvasHistory {
     private List<Paint> paints = new ArrayList<>();
-    private List<Paint> previousPaints;
+    private List<Paint> previousPaints = new ArrayList<>();
 
     public List<Paint> getPaints() {
         return paints;
@@ -24,7 +24,7 @@ public class CanvasHistory {
     }
 
     public void undo(){
-        previousPaints = new ArrayList<>(paints);
+        previousPaints.add(paints.get(paints.size() - 1));
         paints.remove(paints.size() - 1);
 
         for (Paint paint : paints){
@@ -33,9 +33,16 @@ public class CanvasHistory {
     }
 
     public void redo(){
-        paints = new ArrayList<>(previousPaints);
-        for (Paint paint : previousPaints){
+        paints.add(previousPaints.get(previousPaints.size() - 1));
+        previousPaints.remove(previousPaints.size() - 1);
+
+        for (Paint paint : paints){
             paint.execute();
         }
+    }
+
+    public void clear(){
+        paints = new ArrayList<>();
+        previousPaints = new ArrayList<>();
     }
 }
