@@ -64,6 +64,8 @@ public class Controller {
 
     PaintPencil paintPencil = null;
 
+    PaintBrush paintBrush = null;
+
     @FXML
     public void initialize(){
         initControls();
@@ -99,6 +101,10 @@ public class Controller {
                 paintPencil = new PaintPencil(e.getX(), e.getY(),
                         Double.parseDouble(sizeComboBox.getSelectionModel().getSelectedItem().toString()), colorPicker.getValue(), graphicsContext);
             }
+            else if (brushButton.isSelected()){
+                paintBrush = new PaintBrush(Double.parseDouble(sizeComboBox.getSelectionModel().getSelectedItem().toString()),
+                        colorPicker.getValue(), graphicsContext, new Coordinates(e.getX(), e.getY()));
+            }
 
         });
         canvas.setOnMouseReleased(e -> {
@@ -111,16 +117,20 @@ public class Controller {
             else if (pencilButton.isSelected()){
                 canvasHistory.addPaint(paintPencil);
             }
+            else if (brushButton.isSelected()){
+                canvasHistory.addPaint(paintBrush);
+            }
             graphicsContext.beginPath();
         });
         canvas.setOnMouseDragged(e -> {
-            double size = Double.parseDouble(sizeComboBox.getSelectionModel().getSelectedItem().toString());
-            double x = e.getX() - size/2;
-            double y = e.getY() - size/2;
-
             if (brushButton.isSelected()){
+                double size = Double.parseDouble(sizeComboBox.getSelectionModel().getSelectedItem().toString());
+                double x = e.getX() - size/2;
+                double y = e.getY() - size/2;
                 graphicsContext.setFill(colorPicker.getValue());
                 graphicsContext.fillRoundRect(x ,y ,size, size, size, size);
+
+                paintBrush.addCoorinates(new Coordinates(x, y));
             }
             else if (pencilButton.isSelected()){
                 graphicsContext.setStroke(colorPicker.getValue());
