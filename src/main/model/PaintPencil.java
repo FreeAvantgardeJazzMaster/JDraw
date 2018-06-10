@@ -16,6 +16,8 @@ public class PaintPencil implements Paint {
         this.coordinates.add(coordinate);
     }
 
+    public String getName(){return null;}
+
     public double getSize() {
         return size;
     }

@@ -2,15 +2,26 @@ package main.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.HBox;
 import main.model.*;
+import main.plugin.Plugin;
+import main.plugin.PluginLoader;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Controller {
@@ -54,6 +65,14 @@ public class Controller {
     @FXML
     private AnchorPane anchorPane;
 
+    @FXML
+    private ComboBox pluginsComboBox;
+
+    @FXML
+    private HBox pluginsToolBox;
+
+    public Plugin[] plugins;
+
     public boolean toolSelected = false;
 
     public GraphicsContext graphicsContext;
@@ -70,6 +89,7 @@ public class Controller {
     public void initialize(){
         initControls();
         initCanvas();
+        loadPlugins();
     }
 
     public void selectTool(ActionEvent event){
@@ -87,6 +107,30 @@ public class Controller {
         ObservableList<String> values = FXCollections.observableArrayList("1", "2", "5", "10", "15", "20", "25", "30");
         sizeComboBox.setItems(values);
         sizeComboBox.getSelectionModel().selectFirst();
+    }
+
+    private void loadPlugins(){
+        plugins = null;
+
+        try {
+            plugins = PluginLoader.initAsPlugin(PluginLoader.loadPlugins("src\\plugins", "config.cfg"));
+        } catch (InstantiationException | ClassNotFoundException | IllegalAccessException | IOException e) {
+            e.printStackTrace();
+        }
+
+        initPlugins();
+    }
+
+    private void initPlugins(){
+        if (plugins != null) {
+            for (Plugin plugin : plugins) {
+                Button button = new Button(plugin.getName());
+                pluginsToolBox.getChildren().add(button);
+                button.setOnAction(e -> {
+                    canvasHistory.addPaint(plugin.run(canvas, colorPicker.getValue()));
+                });
+            }
+        }
     }
 
     private void initCanvas(){
@@ -156,5 +200,16 @@ public class Controller {
         graphicsContext = canvas.getGraphicsContext2D();
         graphicsContext.clearRect(0,0, canvas.getWidth(), canvas.getHeight());
         canvasHistory.redo();
+    }
+
+    public void save(ActionEvent event) throws IOException{
+        File file = new File("picture.png");
+        WritableImage image = canvas.snapshot(null, null);
+        BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+        ImageIO.write(bImage, "png", file);
+    }
+
+    public void drawSquare(ActionEvent event){
+
     }
 }

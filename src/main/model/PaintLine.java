@@ -12,6 +12,8 @@ public class PaintLine implements Paint{
     private Color color;
     private GraphicsContext gc;
 
+    public String getName(){return null;}
+
     public double getStartX() {
         return startX;
     }
